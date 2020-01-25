@@ -55,10 +55,33 @@ spec:
               description: LanguageWebhookService indicates which service in current
                 namespace operates webhook that implements the Language requested.
               type: string
+            params:
+              items:
+                properties:
+                  description:
+                    description: Description is shown to users to explain the purpose
+                      of this parameter within the HandlerScript.
+                    type: string
+                  name:
+                    description: Name is the (normally all-lowercase) symbol to retrieve
+                      the parameter within the HandlerScript. If Name was "message",
+                      then for Ruby you would get the value with `params[:message]`.
+                    type: string
+                  type:
+                    enum:
+                    - string
+                    type: string
+                required:
+                - description
+                - name
+                - type
+                type: object
+              type: array
           required:
           - handler_script
           - language
           - language_webhook_service
+          - params
           type: object
         status:
           description: PolicyFunctionTemplateStatus defines the observed state of

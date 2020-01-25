@@ -43,6 +43,23 @@ type PolicyFunctionTemplateSpec struct {
 	// HandlerScript contains a handler(admission_review, admission_resp) function
 	// in the Language.
 	HandlerScript string `json:"handler_script"`
+
+	Params []PolicyFunctionTemplateParam `json:"params"`
+}
+
+type PolicyFunctionTemplateParam struct {
+	// Name is the (normally all-lowercase) symbol to retrieve the parameter
+	// within the HandlerScript.
+	// If Name was "message", then for Ruby you would get the value with
+	// `params[:message]`.
+	Name string `json:"name"`
+
+	// +kubebuilder:validation:Enum=string
+	Type string `json:"type"`
+
+	// Description is shown to users to explain the purpose of this parameter
+	// within the HandlerScript.
+	Description string `json:"description"`
 }
 
 // PolicyFunctionTemplateStatus defines the observed state of PolicyFunctionTemplate
