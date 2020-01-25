@@ -4,4 +4,7 @@ resources:
 - group: rapid
   kind: PolicyFunctionTemplate
   version: v1beta1
+- group: rapid
+  kind: PolicyFunction
+  version: v1beta1
 version: "2"

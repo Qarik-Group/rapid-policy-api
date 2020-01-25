@@ -57,6 +57,8 @@ spec:
               type: string
             params:
               items:
+                description: PolicyFunctionTemplateParam describes a named parameter
+                  for configuring instances of PolicyFunctionTemplate as PolicyFunctions.
                 properties:
                   description:
                     description: Description is shown to users to explain the purpose

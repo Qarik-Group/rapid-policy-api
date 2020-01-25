@@ -1,10 +1,8 @@
-
----
+# permissions to do edit policyfunctions.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  creationTimestamp: null
-  name: manager-role
+  name: policyfunction-editor-role
 rules:
 - apiGroups:
   - rapid.k8s.starkandwayne.com
@@ -22,26 +20,6 @@ rules:
   - rapid.k8s.starkandwayne.com
   resources:
   - policyfunctions/status
-  verbs:
-  - get
-  - patch
-  - update
-- apiGroups:
-  - rapid.k8s.starkandwayne.com
-  resources:
-  - policyfunctiontemplates
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - rapid.k8s.starkandwayne.com
-  resources:
-  - policyfunctiontemplates/status
   verbs:
   - get
   - patch

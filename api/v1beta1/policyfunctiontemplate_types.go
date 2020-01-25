@@ -47,6 +47,8 @@ type PolicyFunctionTemplateSpec struct {
 	Params []PolicyFunctionTemplateParam `json:"params"`
 }
 
+// PolicyFunctionTemplateParam describes a named parameter for
+// configuring instances of PolicyFunctionTemplate as PolicyFunctions.
 type PolicyFunctionTemplateParam struct {
 	// Name is the (normally all-lowercase) symbol to retrieve the parameter
 	// within the HandlerScript.

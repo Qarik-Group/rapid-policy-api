@@ -1,7 +1,7 @@
 apiVersion: rapid.k8s.starkandwayne.com/v1beta1
 kind: PolicyFunctionTemplate
 metadata:
-  name: policyfunctiontemplate-ruby-always-fail
+  name: ruby-always-fail
 spec:
   language: ruby
   language_webhook_service: tiny-kubernetes-webhooks-webhook-service-languages
