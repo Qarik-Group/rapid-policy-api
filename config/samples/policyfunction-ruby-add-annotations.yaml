@@ -10,16 +10,33 @@ kind: PolicyFunction
 metadata:
   name: ruby-add-annotations
 spec:
-  policyfunction:
-    name: policyfunctiontemplate-ruby-add-annotations
-    params:
-      message: "The ruby-always-fails policy has spoken. That's a no for you."
-  webhooktemplate:
-    rules:
-      - apiGroups: [""]
-        apiVersions: ["*"]
-        operations: ["CREATE", "UPDATE"]
-        resources: ["pods"]
-    namespaceSelector:
-      matchExpressions: [{key: "ruby-add-annotations", operator: In, values: ["true"]}]
-    failurePolicy: Fail
+  language: ruby
+  language_webhook_service: tiny-kubernetes-webhooks-webhook-service-languages
+  handler_script: |-
+    # admission_review - https://godoc.org/k8s.io/api/admission/v1beta1#AdmissionRequest
+    # admission_resp - https://godoc.org/k8s.io/api/admission/v1beta1#AdmissionResponse
+    # jsonpatch - http://jsonpatch.com/
+    def handler(admission_review, params, cache_dir)
+      admission_resp = {}
+      admission_resp[:allowed] = true
+      admission_resp[:patch] = [
+        {
+          op: "replace",
+          path: "/metadata/annotations/#{params[:key]}",
+          value: params[:value]
+        }
+      ]
+      $stderr.puts "#{params[:policyfunction][:name]} response:"
+      $stderr.puts admission_resp.inspect
+      admission_resp
+    end
+  params:
+  - name: key
+    type: string
+    description: |-
+      Name of annotation to add to /metadata/annotations of
+      target resource.
+  - name: value
+    type: string
+    description: |-
+      Value of annotation to add to /metadata/annotations/<key>

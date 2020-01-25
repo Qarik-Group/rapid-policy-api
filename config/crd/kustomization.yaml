@@ -2,8 +2,8 @@
 # since it depends on service name and namespace that are out of this kustomize package.
 # It should be run by config/default
 resources:
-- bases/rapid.k8s.starkandwayne.com_policyfunctiontemplates.yaml
 - bases/rapid.k8s.starkandwayne.com_policyfunctions.yaml
+- bases/rapid.k8s.starkandwayne.com_policies.yaml
 # +kubebuilder:scaffold:crdkustomizeresource
 
 patchesStrategicMerge:

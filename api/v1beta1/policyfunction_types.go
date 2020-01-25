@@ -17,7 +17,6 @@ limitations under the License.
 package v1beta1
 
 import (
-	admissionregistration "k8s.io/api/admissionregistration/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -29,78 +28,40 @@ type PolicyFunctionSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// PolicyFunctionInstance describes which PolicyFunctionTemplate
-	// to instantiate, and pass parameters.
-	PolicyFunctionInstance PolicyFunctionInstance `json:"policyfunction"`
+	// AdmissionType indicates it should create a ValidationWebhookConfiguration ("validation")
+	// rather than the default MutatingWebhookConfiguration ("mutating")
+	// +kubebuilder:validation:Enum=mutating;validating
+	AdmissionType string `json:"admission_type,omitempty"`
 
-	// WebhookTemplate describes the published webhook
-	WebhookTemplate WebhookSpecTemplate `json:"webhooktemplate"`
+	// Language helps the webhook runner to decide how to interpret/run the script
+	Language string `json:"language"`
+
+	// LanguageWebhookService indicates which service in current namespace operates webhook
+	// that implements the Language requested.
+	LanguageWebhookService string `json:"language_webhook_service"`
+
+	// HandlerScript contains a handler(admission_review, admission_resp) function
+	// in the Language.
+	HandlerScript string `json:"handler_script"`
+
+	Params []PolicyFunctionParam `json:"params"`
 }
 
-// PolicyFunctionInstance describes which PolicyFunctionTemplate
-// to instantiate, and pass parameters.
-type PolicyFunctionInstance struct {
-	Name   string            `json:"name"`
-	Params map[string]string `json:"params"`
-}
+// PolicyFunctionParam describes a named parameter for
+// configuring instances of PolicyFunction as PolicyFunctions.
+type PolicyFunctionParam struct {
+	// Name is the (normally all-lowercase) symbol to retrieve the parameter
+	// within the HandlerScript.
+	// If Name was "message", then for Ruby you would get the value with
+	// `params[:message]`.
+	Name string `json:"name"`
 
-// WebhookSpecTemplate is a template for creating a MutatingWebhookConfiguration
-// or ValidatingWebhookConfiguration.
-type WebhookSpecTemplate struct {
-	// Rules is a tuple of Operations and Resources. It is recommended to make
-	// sure that all the tuple expansions are valid.
-	Rules []admissionregistration.RuleWithOperations `json:"rules,omitempty" protobuf:"bytes,3,rep,name=rules"`
+	// +kubebuilder:validation:Enum=string
+	Type string `json:"type"`
 
-	// NamespaceSelector decides whether to run the webhook on an object based
-	// on whether the namespace for that object matches the selector. If the
-	// object itself is a namespace, the matching is performed on
-	// object.metadata.labels. If the object is another cluster scoped resource,
-	// it never skips the webhook.
-	//
-	// For example, to run the webhook on any objects whose namespace is not
-	// associated with "runlevel" of "0" or "1";  you will set the selector as
-	// follows:
-	// "namespaceSelector": {
-	//   "matchExpressions": [
-	//     {
-	//       "key": "runlevel",
-	//       "operator": "NotIn",
-	//       "values": [
-	//         "0",
-	//         "1"
-	//       ]
-	//     }
-	//   ]
-	// }
-	//
-	// If instead you want to only run the webhook on any objects whose
-	// namespace is associated with the "environment" of "prod" or "staging";
-	// you will set the selector as follows:
-	// "namespaceSelector": {
-	//   "matchExpressions": [
-	//     {
-	//       "key": "environment",
-	//       "operator": "In",
-	//       "values": [
-	//         "prod",
-	//         "staging"
-	//       ]
-	//     }
-	//   ]
-	// }
-	//
-	// See
-	// https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
-	// for more examples of label selectors.
-	//
-	// Default to the empty LabelSelector, which matches everything.
-	// +optional
-	NamespaceSelector *metav1.LabelSelector `json:"namespaceSelector,omitempty" protobuf:"bytes,5,opt,name=namespaceSelector"`
-
-	// FailurePolicy defines how unrecognized errors from the admission endpoint are handled -
-	// allowed values are Ignore or Fail. Defaults to Ignore.
-	// +optional
-	FailurePolicy *admissionregistration.FailurePolicyType `json:"failurePolicy,omitempty" protobuf:"bytes,4,opt,name=failurePolicy,casttype=FailurePolicyType"`
+	// Description is shown to users to explain the purpose of this parameter
+	// within the HandlerScript.
+	Description string `json:"description"`
 }
 
 // PolicyFunctionStatus defines the observed state of PolicyFunction
@@ -111,7 +72,7 @@ type PolicyFunctionStatus struct {
 
 // +kubebuilder:object:root=true
 
-// PolicyFunction is the Schema for the policyfunctions API
+// PolicyFunction is the Schema for the PolicyFunctions API
 type PolicyFunction struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
