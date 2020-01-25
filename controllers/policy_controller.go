@@ -27,27 +27,27 @@ import (
 	rapidv1beta1 "github.com/starkandwayne/rapid-policy-api/api/v1beta1"
 )
 
-// PolicyFunctionTemplateReconciler reconciles a PolicyFunctionTemplate object
-type PolicyFunctionTemplateReconciler struct {
+// PolicyReconciler reconciles a Policy object
+type PolicyReconciler struct {
 	client.Client
 	Log    logr.Logger
 	Scheme *runtime.Scheme
 }
 
-// +kubebuilder:rbac:groups=rapid.k8s.starkandwayne.com,resources=policyfunctiontemplates,verbs=get;list;watch;create;update;patch;delete
-// +kubebuilder:rbac:groups=rapid.k8s.starkandwayne.com,resources=policyfunctiontemplates/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=rapid.k8s.starkandwayne.com,resources=policyfunctions,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=rapid.k8s.starkandwayne.com,resources=policyfunctions/status,verbs=get;update;patch
 
-func (r *PolicyFunctionTemplateReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
+func (r *PolicyReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	_ = context.Background()
-	_ = r.Log.WithValues("policyfunctiontemplate", req.NamespacedName)
+	_ = r.Log.WithValues("policy", req.NamespacedName)
 
 	// your logic here
 
 	return ctrl.Result{}, nil
 }
 
-func (r *PolicyFunctionTemplateReconciler) SetupWithManager(mgr ctrl.Manager) error {
+func (r *PolicyReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&rapidv1beta1.PolicyFunctionTemplate{}).
+		For(&rapidv1beta1.Policy{}).
 		Complete(r)
 }

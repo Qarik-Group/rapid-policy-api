@@ -34,8 +34,8 @@ type PolicyFunctionReconciler struct {
 	Scheme *runtime.Scheme
 }
 
-// +kubebuilder:rbac:groups=rapid.k8s.starkandwayne.com,resources=policyfunctions,verbs=get;list;watch;create;update;patch;delete
-// +kubebuilder:rbac:groups=rapid.k8s.starkandwayne.com,resources=policyfunctions/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=rapid.k8s.starkandwayne.com,resources=PolicyFunctions,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=rapid.k8s.starkandwayne.com,resources=PolicyFunctions/status,verbs=get;update;patch
 
 func (r *PolicyFunctionReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	_ = context.Background()

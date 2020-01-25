@@ -65,20 +65,20 @@ func main() {
 		os.Exit(1)
 	}
 
-	if err = (&controllers.PolicyFunctionTemplateReconciler{
-		Client: mgr.GetClient(),
-		Log:    ctrl.Log.WithName("controllers").WithName("PolicyFunctionTemplate"),
-		Scheme: mgr.GetScheme(),
-	}).SetupWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to create controller", "controller", "PolicyFunctionTemplate")
-		os.Exit(1)
-	}
 	if err = (&controllers.PolicyFunctionReconciler{
 		Client: mgr.GetClient(),
 		Log:    ctrl.Log.WithName("controllers").WithName("PolicyFunction"),
 		Scheme: mgr.GetScheme(),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "PolicyFunction")
+		os.Exit(1)
+	}
+	if err = (&controllers.PolicyReconciler{
+		Client: mgr.GetClient(),
+		Log:    ctrl.Log.WithName("controllers").WithName("Policy"),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "Policy")
 		os.Exit(1)
 	}
 	// +kubebuilder:scaffold:builder
