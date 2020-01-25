@@ -1,0 +1,3 @@
+domain: k8s.starkandwayne.com
+repo: github.com/starkandwayne/rapid-policy-api
+version: "2"
