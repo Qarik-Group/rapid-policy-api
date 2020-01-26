@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: test-ruby-always-fail
+  labels:
+    ruby-always-fails: "true"
+---
+apiVersion: rapid.k8s.starkandwayne.com/v1beta1
+kind: Policy
+metadata:
+  name: ruby-always-fail
+spec:
+  policyfunction:
+    name: policyfunctiontemplate-ruby-always-fail
+    params:
+      message: "The ruby-always-fails policy has spoken. That's a no for you."
+  webhooktemplate:
+    rules:
+      - apiGroups: [""]
+        apiVersions: ["*"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["pods"]
+    namespaceSelector:
+      matchExpressions: [{key: "ruby-always-fails", operator: In, values: ["true"]}]
+    failurePolicy: Fail
