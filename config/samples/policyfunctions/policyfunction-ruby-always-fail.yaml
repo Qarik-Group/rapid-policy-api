@@ -3,6 +3,7 @@ kind: PolicyFunction
 metadata:
   name: ruby-always-fail
 spec:
+  admission_type: validating
   language: ruby/v2
   language_webhook_service: rapid-policy-webhook-service-languages
   handler_script: |-
