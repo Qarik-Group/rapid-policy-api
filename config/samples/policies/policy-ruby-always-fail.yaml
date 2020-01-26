@@ -23,3 +23,5 @@ spec:
     namespaceSelector:
       matchExpressions: [{key: "ruby-always-fails", operator: In, values: ["true"]}]
     failurePolicy: Fail
+status:
+  enabled: true
