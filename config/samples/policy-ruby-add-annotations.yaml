@@ -11,7 +11,7 @@ metadata:
   name: ruby-add-annotations
 spec:
   policyfunction:
-    name: policyfunctiontemplate-ruby-add-annotations
+    name: ruby-add-annotations
     params:
       message: "The ruby-always-fails policy has spoken. That's a no for you."
   webhooktemplate:

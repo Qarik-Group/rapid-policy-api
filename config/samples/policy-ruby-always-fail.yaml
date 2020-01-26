@@ -11,7 +11,7 @@ metadata:
   name: ruby-always-fail
 spec:
   policyfunction:
-    name: policyfunctiontemplate-ruby-always-fail
+    name: ruby-always-fail
     params:
       message: "The ruby-always-fails policy has spoken. That's a no for you."
   webhooktemplate:

@@ -10,7 +10,7 @@ kind: PolicyFunction
 metadata:
   name: ruby-add-annotations
 spec:
-  language: ruby
+  language: ruby/v2
   language_webhook_service: tiny-kubernetes-webhooks-webhook-service-languages
   handler_script: |-
     # admission_review - https://godoc.org/k8s.io/api/admission/v1beta1#AdmissionRequest
