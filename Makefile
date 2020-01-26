@@ -29,12 +29,19 @@ run: generate fmt vet manifests
 install: manifests
 	kustomize build config/crd | kubectl apply -f -
 
-install-samples: install
-	kubectl apply -f config/samples/
-
 # Uninstall CRDs from a cluster
 uninstall: manifests
 	kustomize build config/crd | kubectl delete -f -
+
+install-samples: install
+	kubectl apply -f config/samples/policyfunctions/
+	kubectl apply -f config/samples/policies/
+
+uninstall-samples: install
+	kubectl delete -f config/samples/policies/
+	kubectl delete -f config/samples/policyfunctions/
+	kubectl delete mutatingwebhookconfigurations.admissionregistration.k8s.io v1beta1-policy-rapid-policy-system-ruby-add-annotations
+	kubectl delete mutatingwebhookconfigurations.admissionregistration.k8s.io v1beta1-policy-rapid-policy-system-ruby-always-fail
 
 # Deploy controller in the configured Kubernetes cluster in ~/.kube/config
 deploy: manifests

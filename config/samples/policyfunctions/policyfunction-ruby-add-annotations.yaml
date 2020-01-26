@@ -1,10 +1,3 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: test-ruby-add-annotations
-  labels:
-    ruby-add-annotations: "true"
----
 apiVersion: rapid.k8s.starkandwayne.com/v1beta1
 kind: PolicyFunction
 metadata:
