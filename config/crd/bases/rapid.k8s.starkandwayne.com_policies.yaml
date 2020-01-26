@@ -12,6 +12,12 @@ spec:
   - JSONPath: .spec.policyfunction.name
     name: PolicyFunction
     type: string
+  - JSONPath: .status.enabled
+    name: Enabled
+    type: boolean
+  - JSONPath: .status.error
+    name: Error
+    type: string
   group: rapid.k8s.starkandwayne.com
   names:
     kind: Policy
@@ -182,6 +188,11 @@ spec:
           type: object
         status:
           description: PolicyStatus defines the observed state of Policy
+          properties:
+            enabled:
+              type: boolean
+            error:
+              type: string
           type: object
       type: object
   version: v1beta1

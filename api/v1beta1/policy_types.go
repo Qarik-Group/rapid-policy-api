@@ -108,10 +108,17 @@ type WebhookSpecTemplate struct {
 type PolicyStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+
+	Enabled *bool `json:"enabled,omitempty"`
+
+	// +optional
+	Error string `json:"error,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:printcolumn:name="PolicyFunction",type="string",JSONPath=".spec.policyfunction.name"
+// +kubebuilder:printcolumn:name="Enabled",type="boolean",JSONPath=".status.enabled"
+// +kubebuilder:printcolumn:name="Error",type="string",JSONPath=".status.error"
 
 // Policy is the Schema for the policies API
 type Policy struct {
