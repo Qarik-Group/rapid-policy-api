@@ -4,7 +4,7 @@ metadata:
   name: ruby-always-fail
 spec:
   language: ruby/v2
-  language_webhook_service: tiny-kubernetes-webhooks-webhook-service-languages
+  language_webhook_service: rapid-policy-webhook-service-languages
   handler_script: |-
     # admission_review - https://godoc.org/k8s.io/api/admission/v1beta1#AdmissionRequest
     # admission_resp - https://godoc.org/k8s.io/api/admission/v1beta1#AdmissionResponse
