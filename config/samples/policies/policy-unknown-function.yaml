@@ -1,0 +1,17 @@
+apiVersion: rapid.k8s.starkandwayne.com/v1beta1
+kind: Policy
+metadata:
+  name: unknown-function
+spec:
+  policyfunction:
+    name: unknown-function
+    params: {}
+  webhooktemplate:
+    rules:
+      - apiGroups: [""]
+        apiVersions: ["*"]
+        operations: ["CREATE"]
+        resources: ["pods"]
+    namespaceSelector:
+      matchExpressions: [{key: "unknown-function", operator: In, values: ["true"]}]
+    failurePolicy: Fail
