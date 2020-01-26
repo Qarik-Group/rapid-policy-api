@@ -1,0 +1,7 @@
+apiVersion: rapid.k8s.starkandwayne.com/v1beta1
+kind: PolicyFunction
+metadata:
+  name: policyfunction-sample
+spec:
+  # Add fields here
+  foo: bar

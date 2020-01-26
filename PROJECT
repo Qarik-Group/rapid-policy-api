@@ -1,0 +1,10 @@
+domain: k8s.starkandwayne.com
+repo: github.com/starkandwayne/rapid-policy-api
+resources:
+- group: rapid
+  kind: PolicyFunction
+  version: v1beta1
+- group: rapid
+  kind: Policy
+  version: v1beta1
+version: "2"
