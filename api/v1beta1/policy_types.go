@@ -40,7 +40,8 @@ type PolicySpec struct {
 // PolicyFunctionInstance describes which PolicyFunction
 // to instantiate, and pass parameters.
 type PolicyFunctionInstance struct {
-	Name   string            `json:"name"`
+	Name string `json:"name"`
+
 	Params map[string]string `json:"params"`
 }
 
@@ -110,6 +111,7 @@ type PolicyStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:printcolumn:name="PolicyFunction",type="string",JSONPath=".spec.policyfunction.name"
 
 // Policy is the Schema for the policies API
 type Policy struct {

@@ -8,6 +8,10 @@ metadata:
   creationTimestamp: null
   name: policies.rapid.k8s.starkandwayne.com
 spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.policyfunction.name
+    name: PolicyFunction
+    type: string
   group: rapid.k8s.starkandwayne.com
   names:
     kind: Policy
@@ -15,6 +19,7 @@ spec:
     plural: policies
     singular: policy
   scope: Namespaced
+  subresources: {}
   validation:
     openAPIV3Schema:
       description: Policy is the Schema for the policies API
