@@ -68,11 +68,13 @@ type PolicyFunctionSpecParam struct {
 type PolicyFunctionStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+
 }
 
 // +kubebuilder:object:root=true
 
 // PolicyFunction is the Schema for the policyfunctions API
+// +kubebuilder:subresource:status
 type PolicyFunction struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`

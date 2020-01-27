@@ -121,6 +121,7 @@ type PolicyStatus struct {
 // +kubebuilder:printcolumn:name="Error",type="string",JSONPath=".status.error"
 
 // Policy is the Schema for the policies API
+// +kubebuilder:subresource:status
 type Policy struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
