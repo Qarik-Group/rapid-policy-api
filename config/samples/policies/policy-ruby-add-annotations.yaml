@@ -13,6 +13,7 @@ spec:
   policyfunction:
     name: ruby-add-annotations
     params:
+      # TODO: wrong params for the function
       message: "The ruby-always-fails policy has spoken. That's a no for you."
   webhooktemplate:
     rules:
