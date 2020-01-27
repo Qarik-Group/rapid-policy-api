@@ -16,4 +16,4 @@ spec:
       matchExpressions: [{key: "unknown-function", operator: In, values: ["true"]}]
     failurePolicy: Fail
 status:
-  enabled: false
+  enabled: true

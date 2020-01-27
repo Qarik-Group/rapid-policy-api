@@ -110,9 +110,6 @@ type PolicyStatus struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	Enabled *bool `json:"enabled,omitempty"`
-
-	// +optional
-	Error string `json:"error,omitempty"`
 }
 
 // +kubebuilder:object:root=true

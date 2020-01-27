@@ -192,8 +192,6 @@ spec:
           properties:
             enabled:
               type: boolean
-            error:
-              type: string
           type: object
       type: object
   version: v1beta1
