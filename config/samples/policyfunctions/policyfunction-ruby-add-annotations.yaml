@@ -10,16 +10,19 @@ spec:
     # admission_resp - https://godoc.org/k8s.io/api/admission/v1beta1#AdmissionResponse
     # jsonpatch - http://jsonpatch.com/
     def handler(admission_review, params, cache_dir)
+      unless params["key"] && params["value"]
+        return {allowed: false, status: {message: "Requires params 'key' and 'value'"}}
+      end
       admission_resp = {}
       admission_resp[:allowed] = true
       admission_resp[:patch] = [
         {
           op: "replace",
-          path: "/metadata/annotations/#{params[:key]}",
-          value: params[:value]
+          path: "/metadata/annotations/#{params["key"]}",
+          value: params["value"]
         }
       ]
-      $stderr.puts "#{params[:policyfunction][:name]} response:"
+      $stderr.puts "ruby-add-annotations response:"
       $stderr.puts admission_resp.inspect
       admission_resp
     end
